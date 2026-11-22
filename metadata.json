@@ -1,0 +1,6 @@
+{
+  "name": "TalentLens ATS",
+  "description": "Production-grade B2B SaaS Applicant Tracking System for resume screening, AI job-description matching, hiring pipeline management, and side-by-side candidate comparison.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

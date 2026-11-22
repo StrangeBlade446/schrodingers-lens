@@ -15,7 +15,6 @@ import {
 
 interface InkRevealHeroProps {
   onStartProject: () => void;
-  onBrowseWork: () => void;
 }
 
 const WORDMARK = 'SCHRODINGER';
@@ -160,7 +159,7 @@ function renderBasePaperCache(
   drawWordmark(ctx, width, height, INK_BLACK, fontSize);
 }
 
-export function InkRevealHero({ onStartProject, onBrowseWork }: InkRevealHeroProps) {
+export function InkRevealHero({ onStartProject }: InkRevealHeroProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -612,7 +611,7 @@ export function InkRevealHero({ onStartProject, onBrowseWork }: InkRevealHeroPro
       data-testid="ink-reveal-hero"
       data-active-plate={activePlate.id}
       data-active-marks={activeMarkCount}
-      className="relative w-full min-h-[calc(100vh)] pt-16 overflow-hidden select-none touch-pan-y bg-[#F7F7F5] border-b border-black/[0.08]"
+      className="relative w-full h-full min-h-[calc(100vh-4rem)] overflow-hidden select-none touch-pan-y bg-[#F7F7F5]"
     >
       {/* Semantic headline for accessibility & SEO matching the monumental canvas wordmark */}
       <h1 className="sr-only">Schrodinger's Lens — Quantum ATS & Holistic Multi-Parameter Candidate Evaluation</h1>
@@ -626,7 +625,7 @@ export function InkRevealHero({ onStartProject, onBrowseWork }: InkRevealHeroPro
       />
 
       {/* Editorial Corner Framing Overlay (pointer-events-none so hover paints seamlessly underneath) */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 min-h-[calc(100vh-4rem)] flex flex-col justify-between py-8 md:py-10 pointer-events-none">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 h-full min-h-[calc(100vh-4rem)] flex flex-col justify-between py-6 md:py-8 pointer-events-none">
         {/* Top Row: Manifesto Left + Minimal Studio Index Right */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
           <div className="max-w-sm space-y-4 pointer-events-auto">
@@ -650,44 +649,42 @@ export function InkRevealHero({ onStartProject, onBrowseWork }: InkRevealHeroPro
 
           {/* Minimal Reference-Inspired Right Index */}
           <div className="hidden md:flex flex-col items-end gap-2 text-xs text-[#5A5A56] pointer-events-auto">
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap"
+            <button
+              type="button"
+              onClick={onStartProject}
+              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap cursor-pointer text-left"
             >
               <span className="w-4 h-px bg-black/25 group-hover:w-6 group-hover:bg-[#0A0A0A] transition-all duration-200" />
-              <span>Intelligence Modules</span>
-            </a>
-            <a
-              href="#story"
-              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap"
+              <span>01. Multi-Parameter Screening</span>
+            </button>
+            <button
+              type="button"
+              onClick={onStartProject}
+              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap cursor-pointer text-left"
             >
               <span className="w-4 h-px bg-black/25 group-hover:w-6 group-hover:bg-[#0A0A0A] transition-all duration-200" />
-              <span>Philosophy &amp; Pillars</span>
-            </a>
-            <a
-              href="#enquire"
-              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap"
+              <span>02. Synthetic AI Rejection Sentinel</span>
+            </button>
+            <button
+              type="button"
+              onClick={onStartProject}
+              className="group inline-flex items-center gap-2.5 hover:text-[#0A0A0A] transition-colors whitespace-nowrap cursor-pointer text-left"
             >
               <span className="w-4 h-px bg-black/25 group-hover:w-6 group-hover:bg-[#0A0A0A] transition-all duration-200" />
-              <span>Enterprise Intake</span>
-            </a>
+              <span>03. Quantum Finalist Matrix</span>
+            </button>
           </div>
         </div>
 
-        {/* Bottom Row: Browse Scroll Action Left + Pigment Switcher & Roam Cue Right */}
+        {/* Bottom Row: Status Indicator Left + Pigment Switcher & Roam Cue Right */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-6">
-          <button
-            type="button"
-            onClick={onBrowseWork}
-            className="group inline-flex items-center gap-3 text-xs font-medium text-[#4A4A48] hover:text-[#0A0A0A] transition-colors pointer-events-auto cursor-pointer self-start py-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0A0A0A]"
-          >
-            <span className="w-5 h-px bg-black/35 group-hover:w-7 group-hover:bg-[#0A0A0A] transition-all duration-200" />
-            <span className="whitespace-nowrap">Explore Architecture</span>
-            <ArrowDown
-              className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-y-0.5"
-              aria-hidden="true"
-            />
-          </button>
+          <div className="flex items-center gap-2.5 text-xs font-mono text-[#5A5A56] pointer-events-auto py-1">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="tracking-tight">Production ATS Online · Click anywhere to enter</span>
+          </div>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-[#5A5A56] pointer-events-auto">
             <div

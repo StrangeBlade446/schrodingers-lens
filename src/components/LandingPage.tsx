@@ -1,12 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { EnquirySection } from './EnquirySection';
-import { Footer } from './Footer';
 import { Header } from './Header';
 import { InkRevealHero } from './InkRevealHero';
-import { ProjectModal } from './ProjectModal';
-import { StorySection } from './StorySection';
-import { WorkShowcase } from './WorkShowcase';
-import type { StudioProject } from '../utils/projectFilters';
 import type { ActiveModule } from '../types/ats';
 
 export interface LandingPageProps {
@@ -17,8 +10,6 @@ export interface LandingPageProps {
   onToggleSentinelChat?: () => void;
 }
 
-const SECTION_IDS = ['main', 'work', 'story', 'enquire'];
-
 export function LandingPage({
   totalJobs,
   totalCandidates,
@@ -26,91 +17,20 @@ export function LandingPage({
   sentinelChatOpen,
   onToggleSentinelChat,
 }: LandingPageProps) {
-  const [activeSection, setActiveSection] = useState<string>('main');
-  const [selectedProject, setSelectedProject] = useState<StudioProject | null>(null);
-  const [preselectedScope, setPreselectedScope] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => Boolean(el)
-    );
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target.id) {
-          setActiveSection(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: '-30% 0px -50% 0px',
-        threshold: [0.1, 0.3, 0.6],
-      }
-    );
-
-    for (const el of elements) {
-      observer.observe(el);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = useCallback((sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, []);
-
-  const handleStartProject = useCallback(() => {
+  const handleLaunchATS = () => {
     onGetStarted('overview');
-  }, [onGetStarted]);
-
-  const handleBrowseWork = useCallback(() => {
-    scrollToSection('work');
-  }, [scrollToSection]);
-
-  const handleDiscussSimilar = useCallback(
-    (scope: string) => {
-      setSelectedProject(null);
-      setPreselectedScope(scope);
-      scrollToSection('enquire');
-    },
-    [scrollToSection]
-  );
+  };
 
   return (
-    <div className="min-h-screen bg-[#F7F7F5] text-[#0A0A0A] font-sans antialiased selection:bg-[#0A0A0A] selection:text-[#F7F7F5]">
+    <div className="h-screen w-full overflow-hidden bg-[#F7F7F5] text-[#0A0A0A] font-sans antialiased selection:bg-[#0A0A0A] selection:text-[#F7F7F5] flex flex-col fixed inset-0">
       <Header
-        activeSection={activeSection}
-        onStartProject={handleStartProject}
+        onStartProject={handleLaunchATS}
         onToggleSentinelChat={onToggleSentinelChat}
       />
 
-      <main>
-        <InkRevealHero
-          onStartProject={handleStartProject}
-          onBrowseWork={handleBrowseWork}
-        />
-        <WorkShowcase onSelectProject={setSelectedProject} />
-        <StorySection />
-        <EnquirySection
-          preselectedScope={preselectedScope}
-          onLaunchPlatform={handleStartProject}
-        />
+      <main className="flex-1 w-full h-[calc(100vh-4rem)] mt-16 overflow-hidden">
+        <InkRevealHero onStartProject={handleLaunchATS} />
       </main>
-
-      <Footer />
-
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onDiscussSimilar={handleDiscussSimilar}
-        onLaunchModule={(mod) => onGetStarted(mod)}
-      />
 
       {/* Floating Status Bar & Quick Jump to Workspace */}
       <div className="fixed bottom-5 right-5 z-30 hidden sm:flex items-center gap-3 bg-[#0A0A0A]/90 backdrop-blur-md text-[#F7F7F5] px-4 py-2.5 rounded-full border border-white/10 shadow-xl text-xs font-medium">
@@ -123,7 +43,7 @@ export function LandingPage({
         <span className="w-px h-3.5 bg-white/20" />
         <button
           type="button"
-          onClick={() => onGetStarted('overview')}
+          onClick={handleLaunchATS}
           className="text-white hover:text-emerald-300 font-bold tracking-tight transition-colors cursor-pointer"
         >
           Enter ATS &rarr;

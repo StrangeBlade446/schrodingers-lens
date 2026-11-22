@@ -1,5 +1,22 @@
-import { PDFParse } from 'pdf-parse';
 import zlib from 'zlib';
+
+let cachedPdfParser: any = null;
+async function getPdfParser() {
+  if (typeof (globalThis as any).DOMMatrix === 'undefined') {
+    (globalThis as any).DOMMatrix = class DOMMatrix {};
+  }
+  if (typeof (globalThis as any).ImageData === 'undefined') {
+    (globalThis as any).ImageData = class ImageData {};
+  }
+  if (typeof (globalThis as any).Path2D === 'undefined') {
+    (globalThis as any).Path2D = class Path2D {};
+  }
+  if (!cachedPdfParser) {
+    const pdfModule = await import('pdf-parse');
+    cachedPdfParser = pdfModule.PDFParse || pdfModule.default;
+  }
+  return cachedPdfParser;
+}
 
 /**
  * Extracts raw textual content from PDF binary buffer using PDFParse (PDF.js)
@@ -8,6 +25,7 @@ import zlib from 'zlib';
 export async function extractTextFromPdfBuffer(buffer: Buffer): Promise<string> {
   // 1. Primary: Use PDFParse (Mozilla PDF.js engine)
   try {
+    const PDFParse = await getPdfParser();
     const parser = new PDFParse({ data: buffer });
     const result = await parser.getText();
     if (typeof parser.destroy === 'function') {

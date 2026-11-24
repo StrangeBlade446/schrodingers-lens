@@ -9,7 +9,7 @@ export function Footer() {
             href="#main"
             className="flex items-center gap-2 font-display text-sm font-black tracking-[-0.03em] text-[#0A0A0A]"
           >
-            <div className="w-5 h-5 rounded bg-[#0A0A0A] text-[#F7F7F5] flex items-center justify-center p-0.5">
+            <div className="w-6 h-6 rounded-md bg-[#FDBC02] text-[#0A0A0A] flex items-center justify-center p-0.5 shadow-xs">
               <CatLogo className="w-full h-full text-current" />
             </div>
             <span>SCHRODINGER'S LENS</span>

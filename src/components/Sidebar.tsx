@@ -1,4 +1,5 @@
 import React from 'react';
+import { CatLogo } from './CatLogo';
 import {
   Briefcase,
   LayoutDashboard,
@@ -90,8 +91,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }}
           className="flex items-center gap-2.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EAB308] rounded"
         >
-          <div className="w-8 h-8 rounded-lg bg-[#1D4ED8] border border-[#EAB308]/60 flex items-center justify-center text-white font-display font-bold text-sm tracking-tight shrink-0">
-            SL
+          <div className="w-8 h-8 rounded-lg bg-[#FDBC02] text-[#0A0A0A] flex items-center justify-center p-1 shrink-0 shadow-sm transition-transform hover:scale-105">
+            <CatLogo className="w-full h-full text-current" />
           </div>
           <span className="font-display font-bold text-sm tracking-tight text-white whitespace-nowrap truncate">
             Schrodinger&apos;s Lens

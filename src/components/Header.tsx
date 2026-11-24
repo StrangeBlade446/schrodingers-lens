@@ -17,7 +17,7 @@ export function Header({ onStartProject, onToggleSentinelChat }: HeaderProps) {
           onClick={onStartProject}
           className="group flex items-center gap-2.5 font-display text-base md:text-lg font-black tracking-[-0.03em] text-[#0A0A0A] whitespace-nowrap shrink-0 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0A0A0A]"
         >
-          <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] text-[#F7F7F5] flex items-center justify-center p-1.5 transition-transform duration-200 group-hover:scale-105 shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-[#FDBC02] text-[#0A0A0A] flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-105 shadow-sm">
             <CatLogo className="w-full h-full text-current" />
           </div>
           <span className="tracking-tight">SCHRODINGER'S LENS</span>

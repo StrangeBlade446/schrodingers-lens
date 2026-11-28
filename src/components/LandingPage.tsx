@@ -18,7 +18,7 @@ export function LandingPage({
   onToggleSentinelChat,
 }: LandingPageProps) {
   const handleLaunchATS = () => {
-    onGetStarted('overview');
+    onGetStarted('jobs');
   };
 
   return (
